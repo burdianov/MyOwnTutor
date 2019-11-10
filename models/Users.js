@@ -36,6 +36,12 @@ module.exports = (sequelize, Datatypes) => {
         len: [7, 100],
         isEmail: true
       },
+      // foreign key in permissions table
+      permission_id: {
+        type: Datatypes.INTEGER,
+        required: true,
+        allowNull: false
+      },
       updated_at: {type: Datatypes.DATE},
       deleted_at: {type: Datatypes.DATE}
     },

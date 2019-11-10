@@ -33,6 +33,13 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+// ASSOCIATIONS
+// permissions
+db.permission.hasMany(db.user);
+
+// users
+db.user.belongsTo(db.permission);
+
 sequelize
   .authenticate()
   .then(() => {
