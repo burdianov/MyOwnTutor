@@ -13,7 +13,7 @@ const validate = require("validate.js");
 - password    : string
 - email       : string
  */
-router.POST("/", asyncHandler((req, res) => {
+router.post("/", asyncHandler((req, res) => {
   const constraints = {
     first_name: {
       presence: true,
