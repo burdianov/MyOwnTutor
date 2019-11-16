@@ -4,16 +4,16 @@ async function validateUserExists(username, email) {
   if (!username || !email) {
     throw new Error("Invalid number of args passed. Please pass username and email");
   }
-  let validUsername = null;
-  let validEmail = null;
+  let takenValidUsername = null;
+  let takenValidEmail = null;
   if (username) {
-    validUsername = await usernameExists(username);
+    takenValidUsername = await usernameExists(username);
   }
   if (email) {
-    validEmail = await emailExists(email);
+    takenValidEmail = await emailExists(email);
   }
-  if (validUsername && validEmail) {
-    return validUsername;
+  if (takenValidUsername && takenValidEmail) {
+    return takenValidUsername;
   } else {
     return null;
   }

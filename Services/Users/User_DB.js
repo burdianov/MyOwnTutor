@@ -34,7 +34,20 @@ async function emailExists(email) {
   return null;
 }
 
+async function createUser(args) {
+  const user = await db.user.create({
+    first_name: args.first_name,
+    last_name: args.last_name,
+    username: args.username,
+    password: args.password,
+    email: args.email,
+    permission_id: args.permission_id
+  });
+  return user;
+}
+
 module.exports = {
   usernameExists,
-  emailExists
+  emailExists,
+  createUser
 };
