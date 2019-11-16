@@ -8,14 +8,33 @@ async function usernameExists(username) {
   if (username === null || username === undefined) {
     throw new Error("No username was passed as an argument");
   }
-  const user  = await db.user.findOne({
+  const user = await db.user.findOne({
     where: {username}
   });
   if (user) {
     return user;
-  } else {
-    return false;
   }
+  return null;
 }
 
-module.exports = {usernameExists};
+/*
+Function checks if email already exists in database.
+Return user if email already taken, false otherwise.
+ */
+async function emailExists(email) {
+  if (email === null || email === undefined) {
+    throw new Error("No email was passed as an argument");
+  }
+  const user = await db.user.findOne({
+    where: {email}
+  });
+  if (user) {
+    return user;
+  }
+  return null;
+}
+
+module.exports = {
+  usernameExists,
+  emailExists
+};
