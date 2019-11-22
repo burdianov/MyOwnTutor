@@ -35,6 +35,24 @@ async function emailExists(email) {
 }
 
 async function createUser(args) {
+  if (!args.username) {
+    throw new Error("Invalid argument: username");
+  }
+  if (!args.first_name) {
+    throw new Error("Invalid argument: first_name");
+  }
+  if (!args.last_name) {
+    throw new Error("Invalid argument: last_name");
+  }
+  if (!args.password) {
+    throw new Error("Invalid argument: password");
+  }
+  if (!args.email) {
+    throw new Error("Invalid argument: email");
+  }
+  if (!args.permission_id) {
+    args.permission_id = 2;
+  }
   const user = await db.user.create({
     first_name: args.first_name,
     last_name: args.last_name,

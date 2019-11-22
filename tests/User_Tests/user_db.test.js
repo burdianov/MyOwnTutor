@@ -57,18 +57,6 @@ describe("User DB Test Suite", () => {
     await destroyDummyUser(test)
   });
 
-  /*
-  Function should create a user
-  RETURN
-  new user
-    new user should have properties:
-      username
-      email
-      first_name
-      last_name
-      password - should be a hash not plain text
-      permission_id
-   */
   it("should create a new user", async () => {
     const first_name = "test";
     const last_name = "test";
@@ -96,6 +84,95 @@ describe("User DB Test Suite", () => {
     expect(user.password).to.equal(password);
     expect(user.username).to.equal(username);
     expect(user.permission_id).to.equal(permission_id);
+  });
+
+  it("should throw an error because no username is passed", async () => {
+    try {
+      const first_name = "test";
+      const last_name = "test";
+      const email = "test@test.com";
+      const password = "test_test";
+      const permission_id = 1;
+
+      const user = await createUser({
+        first_name,
+        last_name,
+        email,
+        password,
+        permission_id
+      });
+    } catch (e) {
+      expect(e).to.be.an("Error");
+      expect(e.message).to.equal("Invalid argument: username");
+    }
+  });
+
+  it("should throw an error because no first_name is passed", async () => {
+    try {
+      const username = "test";
+      const last_name = "test";
+      const email = "test@test.com";
+      const password = "test_test";
+      const permission_id = 1;
+
+      const user = await createUser({
+        last_name,
+        email,
+        username,
+        password,
+        permission_id
+      });
+    } catch (e) {
+      expect(e).to.be.an("Error");
+      expect(e.message).to.equal("Invalid argument: first_name");
+    }
+  });
+
+  it("should throw an error because no last_name is passed", async () => {
+    try {
+      const first_name = "test";
+      const username = "test";
+      const email = "test@test.com";
+      const password = "test_test";
+      const permission_id = 1;
+
+      const user = await createUser({
+        first_name,
+        email,
+        username,
+        password,
+        permission_id
+      });
+    } catch (e) {
+      expect(e).to.be.an("Error");
+      expect(e.message).to.equal("Invalid argument: last_name");
+    }
+  });
+
+  it("should create a user and assign it permission id of 2 as default", async () => {
+    const first_name = "test";
+    const last_name = "test";
+    const username = "test";
+    const email = "test@test.com";
+    const password = "test_test";
+
+    const user = await createUser({
+      first_name,
+      last_name,
+      username,
+      email,
+      password
+    });
+
+    await user.destroy({force: true});
+
+    expect(user).to.be.an("object");
+    expect(user.first_name).to.equal(first_name);
+    expect(user.last_name).to.equal(last_name);
+    expect(user.email).to.equal(email);
+    expect(user.password).to.equal(password);
+    expect(user.username).to.equal(username);
+    expect(user.permission_id).to.equal(2);
   });
 });
 
